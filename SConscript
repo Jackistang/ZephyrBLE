@@ -3,10 +3,20 @@ from building import *
 
 objs = []
 cwd  = GetCurrentDir()
-list = os.listdir(cwd)
 
-for item in list:
-    if os.path.isfile(os.path.join(cwd, item, 'SConscript')):
-        objs = objs + SConscript(os.path.join(item, 'SConscript'))
+bluetooth_dir = 'zephyr/subsys/bluetooth'
 
-Return('objs')
+# bluetooth core
+bluetooth_core = []
+
+
+src = bluetooth_core
+
+CPPPATH = [cwd]
+
+group = DefineGroup('ZephyrBLE', src, depend = [''], CPPPATH = CPPPATH)
+# depend = ['PKG_USING_ZEPHYRBLE'], 
+
+group = group + SConscript(os.path.join('rtthread-port', 'SConscript'))
+
+Return('group')
