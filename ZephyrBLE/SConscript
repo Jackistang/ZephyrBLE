@@ -1,0 +1,15 @@
+from building import *
+
+cwd  = GetCurrentDir()
+
+path = [cwd]
+path += [cwd + "/inc"]
+path += [cwd + "/src/subsys/bluetooth"]
+
+src  = Split('''
+
+''')
+
+group = DefineGroup('ZephyrBLE', src, depend = [''], CPPPATH = path)
+
+Return('group')
